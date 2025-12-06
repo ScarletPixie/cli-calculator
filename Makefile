@@ -11,21 +11,16 @@ else
     CFLAGS += -Wall -Wextra -O0 -g3 -DDEBUG
 endif
 
-CFLAGS += -I. -I./core -MP -MMD
+CFLAGS += -I. -MP -MMD
 
-SRCS := main.c core/builtin.c
+SRCS := main.c
 OBJS := $(addprefix $(BUILD_DIR)/, $(SRCS:.c=.o))
 DEPS := $(OBJS:.o=.d)
 
 all: $(NAME)
 
-$(NAME): LDLIBS += $(addprefix -l, $(PLUGIN_LIBS)) 
 $(NAME): $(OBJS) 
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
-
-$(BUILD_DIR)/core/%.o: %.c
-	mkdir -p $(@D)
-	$(CC) $(CFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/%.o: %.c
 	mkdir -p $(@D)
