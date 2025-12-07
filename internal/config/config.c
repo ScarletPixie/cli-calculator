@@ -90,6 +90,6 @@ static void trim(char* s, unsigned long size)
     }
     
     const unsigned long tokenLength = j - i;
-    memmove(s, &s[i], tokenLength);
+    memmove(s, &s[i], tokenLength * sizeof(s[0]));
     s[tokenLength] = '\0';
 }

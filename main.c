@@ -31,7 +31,7 @@ int main(int argc, char **argv)
 static int run(void)
 {
     const operand_stack_t* operands = get_operand_stack();
-    const operation_stack_t* operations = get_operations_stack();
+    const operation_queue_t* operations = get_operations_stack();
 
     if (operands->size == 0)
     {
@@ -101,7 +101,7 @@ static int run(void)
 static int init_stacks(int c, char** args)
 {
     const operand_stack_t* operands = get_operand_stack();
-    const operation_stack_t* operations = get_operations_stack();
+    const operation_queue_t* operations = get_operations_stack();
 
     for (int i = 1; i < c; ++i)
     {

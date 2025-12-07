@@ -4,7 +4,7 @@
 #include <string.h>
 
 static operand_stack_t operands_;
-static operation_stack_t operations_;
+static operation_queue_t operations_;
 
 void reset_(void);
 const double* pop_(void);
@@ -26,7 +26,7 @@ const operand_stack_t* get_operand_stack(void)
 void reset_2(void);
 const operation_t* pop_2(void);
 const operation_t* push_2(const operation_t* op);
-const operation_stack_t* get_operations_stack(void)
+const operation_queue_t* get_operations_stack(void)
 {
     static int initialized;
     if (!initialized)
@@ -75,8 +75,12 @@ const operation_t* pop_2(void)
     if (operations_.size == 0)
         return NULL;
 
-    const operation_t* op = operations_.operations[operations_.size - 1];
+    const operation_t* op = operations_.operations[0];
     operations_.size--;
+    memmove(operations_.operations,
+            operations_.operations + 1,
+            operations_.size * sizeof(*operations_.operations)
+    );
     return op;
 }
 const operation_t* push_2(const operation_t* op)

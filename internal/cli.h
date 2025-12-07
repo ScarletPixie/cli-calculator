@@ -30,8 +30,8 @@ typedef struct
     void (*reset)(void);
     const operation_t* (*pop)(void);
     const operation_t* (*push)(const operation_t* op);
-}   operation_stack_t;
-const operation_stack_t* get_operations_stack(void);
+}   operation_queue_t;
+const operation_queue_t* get_operations_stack(void);
 
 
 #endif
