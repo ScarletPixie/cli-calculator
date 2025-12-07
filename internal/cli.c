@@ -9,6 +9,7 @@ static operation_queue_t operations_;
 void reset_(void);
 const double* pop_(void);
 const double* push_(double n);
+void reverse_(void);
 const operand_stack_t* get_operand_stack(void)
 {
     static int initialized;
@@ -18,6 +19,7 @@ const operand_stack_t* get_operand_stack(void)
         operands_.reset = reset_;
         operands_.pop = pop_;
         operands_.push = push_;
+        operands_.reverse = reverse_;
     }
     return &operands_;
 }
@@ -62,6 +64,16 @@ const double* push_(double n)
     operands_.operands[operands_.size] = n;
     operands_.size++;
     return &operands_.operands[operands_.size - 1];
+}
+void reverse_(void)
+{
+    for (unsigned int i = 0; i < (operands_.size / 2); ++i)
+    {
+        const unsigned int nextLast = (operands_.size - 1) - i;
+        double tmp = operands_.operands[i];
+        operands_.operands[i] = operands_.operands[nextLast];
+        operands_.operands[nextLast] = tmp;
+    }
 }
 
 

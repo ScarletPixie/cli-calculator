@@ -19,6 +19,7 @@ typedef struct
     void (*reset)(void);
     const double* (*pop)(void);
     const double* (*push)(double n);
+    void (*reverse)(void);
 }   operand_stack_t;
 const operand_stack_t* get_operand_stack(void);
 

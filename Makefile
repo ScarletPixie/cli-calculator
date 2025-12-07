@@ -1,20 +1,22 @@
+NAME := rpn-x
 BUILD_DIR ?= ./build
 BUILD_DIR := $(patsubst %/,%,$(BUILD_DIR))
+
+DEV_BUILD_SUFIX :=
 
 BUILD ?= prod
 
 ifeq ($(BUILD), prod)
-    NAME := rpn-x
     CFLAGS += -Wall -Wextra -Werror -O2 -DNDEBUG
 else
-    NAME := rpn-x-debug
     CFLAGS += -Wall -Wextra -O0 -g3 -DDEBUG
+    DEV_BUILD_SUFIX := -dev
 endif
 
 CFLAGS += -pedantic -I. -MP -MMD
 
 SRCS := $(shell find . -type f -name '*.c')
-OBJS := $(addprefix $(BUILD_DIR)/, $(SRCS:.c=.o))
+OBJS := $(addprefix $(BUILD_DIR)/, $(SRCS:.c=$(DEV_BUILD_SUFIX).o))
 DEPS := $(OBJS:.o=.d)
 
 all: $(NAME)
@@ -25,13 +27,7 @@ $(NAME): $(OBJS)
 $(BUILD_DIR)/%.o: %.c
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
-$(BUILD_DIR)/internal/%.o: %.c
-	mkdir -p $(@D)
-	$(CC) $(CFLAGS) -c $< -o $@
-$(BUILD_DIR)/internal/config/%.o: %.c
-	mkdir -p $(@D)
-	$(CC) $(CFLAGS) -c $< -o $@
-$(BUILD_DIR)/internal/builtin/%.o: %.c
+$(BUILD_DIR)/%-dev.o: %.c
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
 

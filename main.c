@@ -56,29 +56,30 @@ static int run(void)
         }
         else if (op->type == BINARY)
         {
-            const double* v1 = operands->pop();
-            const double* v2 = operands->pop();
-            if (v1 == NULL || v2 == NULL)
+            const double* rhs = operands->pop();
+            const double* lhs = operands->pop();
+            if (lhs == NULL || rhs == NULL)
             {
                 fprintf(stderr, "insuficient operands for %s\n", op->name);
                 return 2;
             }
-            operands->push(op->binary(*v1, *v2));
+            operands->push(op->binary(*lhs, *rhs));
         }
         else if (op->type == TERTIARY)
         {
-            const double* v1 = operands->pop();
-            const double* v2 = operands->pop();
-            const double* v3 = operands->pop();
-            if (v1 == NULL || v2 == NULL || v3 == NULL)
+            const double* rhs = operands->pop();
+            const double* mid = operands->pop();
+            const double* lhs = operands->pop();
+            if (lhs == NULL || mid == NULL || rhs == NULL)
             {
                 fprintf(stderr, "insuficient operands for %s\n", op->name);
                 return 2;
             }
-            operands->push(op->tertiary(*v1, *v2, *v3));
+            operands->push(op->tertiary(*lhs, *mid, *rhs));
         }
         else if (op->type == N_ARY)
         {
+            operands->reverse();
             double val = op->n_ary(operands->size, operands->operands);
             operands->reset();
             operands->push(val);
@@ -89,7 +90,7 @@ static int run(void)
             return 6;
         }
     }
-    if (operands->size != 1)
+    if (operands->size != 1 || operations->size != 0)
     {
         fprintf(stderr, "invalid expression\n");
         return 5;
