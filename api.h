@@ -13,6 +13,7 @@ enum op_type
 
 typedef struct
 {
+    const char* name;
     enum op_type type;
 
     union {

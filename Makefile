@@ -11,9 +11,9 @@ else
     CFLAGS += -Wall -Wextra -O0 -g3 -DDEBUG
 endif
 
-CFLAGS += -I. -MP -MMD
+CFLAGS += -pedantic -I. -MP -MMD
 
-SRCS := main.c
+SRCS := main.c internal/builtin/builtin.c internal/internal.c internal/config/config.c
 OBJS := $(addprefix $(BUILD_DIR)/, $(SRCS:.c=.o))
 DEPS := $(OBJS:.o=.d)
 
