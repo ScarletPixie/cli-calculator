@@ -7,7 +7,7 @@
 
 static void load_builtin(void);
 
-operation_names_t loaded_operations_ = {};
+static operation_names_t loaded_operations_;
 const operation_names_t* loaded_operations(void)
 {
     static int initialized;
@@ -44,9 +44,8 @@ const operation_t* add_op(const operation_t op)
     unsigned int i = 0;
 
     assert(op.name != NULL);
-    assert(loaded_operations_.loaded_c < MAX_OPS);
+    assert(loaded_operations_.loaded_c < MAX_OPS - 1);
 
-    const char* new_op_name = op.name;
     for (; i < loaded_operations_.loaded_c; ++i)
     {
         const char* name = loaded_operations_.opers[i].name;
@@ -71,4 +70,5 @@ static void load_builtin(void)
     assert(sucess != NULL);
     sucess = add_op(div);
     assert(sucess != NULL);
+    (void)sucess;
 }

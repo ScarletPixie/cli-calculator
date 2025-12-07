@@ -13,7 +13,7 @@ endif
 
 CFLAGS += -pedantic -I. -MP -MMD
 
-SRCS := main.c internal/builtin/builtin.c internal/internal.c internal/config/config.c
+SRCS := $(shell find . -type f -name '*.c')
 OBJS := $(addprefix $(BUILD_DIR)/, $(SRCS:.c=.o))
 DEPS := $(OBJS:.o=.d)
 
@@ -23,6 +23,15 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
 $(BUILD_DIR)/%.o: %.c
+	mkdir -p $(@D)
+	$(CC) $(CFLAGS) -c $< -o $@
+$(BUILD_DIR)/internal/%.o: %.c
+	mkdir -p $(@D)
+	$(CC) $(CFLAGS) -c $< -o $@
+$(BUILD_DIR)/internal/config/%.o: %.c
+	mkdir -p $(@D)
+	$(CC) $(CFLAGS) -c $< -o $@
+$(BUILD_DIR)/internal/builtin/%.o: %.c
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
 

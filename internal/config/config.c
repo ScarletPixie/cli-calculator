@@ -6,8 +6,8 @@
 #include <string.h>
 #include <unistd.h>
 
-static plugin_paths_t plugins_ = {};
-static path_t path_ = {};
+static plugin_paths_t plugins_;
+static path_t path_;
 
 static void load_file(void);
 
