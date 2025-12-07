@@ -1,18 +1,18 @@
 #include "builtin.h"
 
-static double _sum(double lhs, double rhs)
+double _sum(double lhs, double rhs)
 {
     return lhs + rhs;
 }
-static double _sub(double lhs, double rhs)
+double _sub(double lhs, double rhs)
 {
     return lhs - rhs;
 }
-static double _mul(double lhs, double rhs)
+double _mul(double lhs, double rhs)
 {
     return lhs * rhs;
 }
-static double _div(double lhs, double rhs)
+double _div(double lhs, double rhs)
 {
     return lhs / rhs;
 }

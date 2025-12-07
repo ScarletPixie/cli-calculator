@@ -6,12 +6,12 @@
 static operand_stack_t operands_;
 static operation_stack_t operations_;
 
-static void reset_(void);
-static const double* pop_(void);
-static const double* push_(double n);
+void reset_(void);
+const double* pop_(void);
+const double* push_(double n);
 const operand_stack_t* get_operand_stack(void)
 {
-    static int initialized;
+    int initialized;
     if (!initialized)
     {
         initialized = 1;
@@ -23,12 +23,12 @@ const operand_stack_t* get_operand_stack(void)
 }
 
 
-static void reset_2(void);
-static const operation_t* pop_2(void);
-static const operation_t* push_2(const operation_t* op);
+void reset_2(void);
+const operation_t* pop_2(void);
+const operation_t* push_2(const operation_t* op);
 const operation_stack_t* get_operations_stack(void)
 {
-    static int initialized;
+    int initialized;
     if (!initialized)
     {
         initialized = 1;
@@ -41,11 +41,11 @@ const operation_stack_t* get_operations_stack(void)
 
 
 // OPERANDS
-static void reset_(void)
+void reset_(void)
 {
     operands_.size = 0;
 }
-static const double* pop_(void)
+const double* pop_(void)
 {
     if (operands_.size == 0)
         return NULL;
@@ -54,7 +54,7 @@ static const double* pop_(void)
     operands_.size--;
     return n;
 }
-static const double* push_(double n)
+const double* push_(double n)
 {
     if (operands_.size >= MAX_OPERANDS -1)
         return NULL;
@@ -66,11 +66,11 @@ static const double* push_(double n)
 
 
 // OPERATIONS
-static void reset_2(void)
+void reset_2(void)
 {
     operations_.size = 0;
 }
-static const operation_t* pop_2(void)
+const operation_t* pop_2(void)
 {
     if (operations_.size == 0)
         return NULL;
@@ -79,7 +79,7 @@ static const operation_t* pop_2(void)
     operations_.size--;
     return op;
 }
-static const operation_t* push_2(const operation_t* op)
+const operation_t* push_2(const operation_t* op)
 {
     if (op == NULL || operations_.size >= MAX_OPERATIONS - 1)
         return NULL;
