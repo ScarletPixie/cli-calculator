@@ -11,7 +11,7 @@ const double* pop_(void);
 const double* push_(double n);
 const operand_stack_t* get_operand_stack(void)
 {
-    int initialized;
+    static int initialized;
     if (!initialized)
     {
         initialized = 1;
@@ -28,7 +28,7 @@ const operation_t* pop_2(void);
 const operation_t* push_2(const operation_t* op);
 const operation_stack_t* get_operations_stack(void)
 {
-    int initialized;
+    static int initialized;
     if (!initialized)
     {
         initialized = 1;

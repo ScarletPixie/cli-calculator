@@ -1,8 +1,6 @@
 #ifndef API_H
 #define API_H
 
-#include <stdarg.h>
-
 enum op_type
 {
     UNARY,
@@ -20,7 +18,7 @@ typedef struct
         double (*unary)(double);
         double (*binary)(double, double);
         double (*tertiary)(double, double, double);
-        double (*n_ary)(int argc, ...);
+        double (*n_ary)(int argc, const double argv[]);
     };
 } operation_t;
 

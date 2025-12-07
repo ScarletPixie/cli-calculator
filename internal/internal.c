@@ -37,7 +37,7 @@ const operation_t* get_op(const char* name)
             return op;
     }
 
-    return op;
+    return NULL;
 }
 const operation_t* add_op(const operation_t op)
 {

@@ -82,7 +82,12 @@ static void trim(char* s, unsigned long size)
         return;
     }
 
-    for (; j >= 0 && isspace(s[j]); --j);
+    while (!isspace(s[j]))
+    {
+        if (j == 0)
+            break;
+        --j;
+    }
     
     const unsigned long tokenLength = j - i;
     memmove(s, &s[i], tokenLength);
