@@ -63,3 +63,6 @@ rpn-x
 # flag files
 .prod
 .debug
+
+# plugin file
+plugins.txt
