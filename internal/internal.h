@@ -10,10 +10,12 @@
 typedef struct
 {
     unsigned int loaded_c;
+    void* handles[MAX_OPS];
     operation_t opers[MAX_OPS];
 }   operation_names_t;
 
-const operation_names_t* loaded_operations(void);
+void load_plugins(void);
+void unload_plugins(void);
 
 const operation_t* get_op(const char* name);
 const operation_t* add_op(const operation_t op);

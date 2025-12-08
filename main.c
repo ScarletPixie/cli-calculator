@@ -1,7 +1,6 @@
 #include "api.h"
 #include "internal/cli.h"
 #include "internal/internal.h"
-#include "internal/config/config.h"
 
 #include <complex.h>
 #include <stdio.h>
@@ -17,15 +16,15 @@ int main(int argc, char **argv)
         printf("Usage: ./rpn-x <operands> <operation>\n");
         return 0;
     }
-    set_plugin_list_path("./plugins.txt");
+    load_plugins();
 
-    (void)loaded_operations();;
-
-    const int status = init_stacks(argc, argv);
+    int status = init_stacks(argc, argv);
     if (status)
         return status;
 
-    return run();
+    status = run();
+    unload_plugins();
+    return status;
 }
 
 static int run(void)

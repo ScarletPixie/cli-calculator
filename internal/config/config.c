@@ -1,15 +1,18 @@
 #include "config.h"
 
 #include <assert.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <dlfcn.h>
 
 static plugin_paths_t plugins_;
 static path_t path_;
 
 static void load_file(void);
+static void set_plugin_list_file(void);
 
 const plugin_paths_t* get_plugin_paths(void)
 {
@@ -17,25 +20,45 @@ const plugin_paths_t* get_plugin_paths(void)
     if (!initialized)
     {
         initialized = 1;
+        set_plugin_list_file();
         load_file();
     }
     return &plugins_;
 }
 
-int set_plugin_list_path(const char* path)
+static void set_plugin_list_file(void)
 {
-    assert(path != NULL);
+    static const char* const ENV_NAME = "RPN_X_PLUGIN_PATH";
+    static const char* PLUGIN_LIST_PATHS[] = {
+        "./plugins.txt",
+        NULL,
+    };
 
-    if (access(path, F_OK | R_OK))
-        return 0;
-
-    strcpy(path_.data, path);
-    return 1;
+    const char* env_plugin_path = getenv(ENV_NAME);
+    if (env_plugin_path != NULL)
+    {
+        if (access(env_plugin_path, R_OK))
+        {
+            fprintf(stderr, "cannot read plugin path %s\n", env_plugin_path);
+            return;
+        }
+    }
+    for (int i = 0; PLUGIN_LIST_PATHS[i] != NULL; ++i)
+    {
+        if (access(PLUGIN_LIST_PATHS[i], R_OK) == 0)
+        {
+            strncpy(path_.data, PLUGIN_LIST_PATHS[i], PATH_MAX);
+            return;
+        }
+    }
 }
 
 static void trim(char* s, unsigned long size);
 static void load_file(void)
 {
+    if (path_.data[0] == '\0')
+        return;
+
     unsigned long line = 1;
     plugin_paths_t tmp_;
 

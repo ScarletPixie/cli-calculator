@@ -22,6 +22,7 @@ typedef struct
     };
 } operation_t;
 
+typedef const operation_t* (*operation_getter)(void);
 const operation_t* get_operation(void);
 
 #endif

@@ -14,9 +14,6 @@ typedef struct
     path_t plugin_paths[255];
 }   plugin_paths_t;
 
-
-int set_plugin_list_path(const char* path);
-
 const plugin_paths_t* get_plugin_paths(void);
 
 #endif

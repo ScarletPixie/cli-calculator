@@ -56,3 +56,10 @@ dkms.conf
 
 # program binary
 rpn-x
+
+# vim editor
+*.swp
+
+# flag files
+.prod
+.debug
