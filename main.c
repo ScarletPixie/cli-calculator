@@ -37,7 +37,7 @@ static int run(void)
         fprintf(stderr, "no operands\n");
         return 4;
     }
-    for (unsigned int i = 0; operands->size != 0 && i < operands->size; ++i)
+    while (operands->size && operations->size)
     {
         const operation_t* op = operations->pop();
         if (op == NULL)

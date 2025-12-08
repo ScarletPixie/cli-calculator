@@ -61,8 +61,6 @@ static void load_file(void)
         return;
 
     unsigned long line = 1;
-    plugin_paths_t tmp_;
-
 
     FILE* fp = fopen(path_.data, "r");
     if (fp == NULL)
@@ -71,7 +69,6 @@ static void load_file(void)
         return;
     }
 
-    int has_data = 0;
     path_t buffer;
     while (fgets(buffer.data, sizeof(buffer.data) / sizeof(*buffer.data), fp) && line < 255)
     {
@@ -79,15 +76,11 @@ static void load_file(void)
         trim(buffer.data, size);
         if (*buffer.data != '\0')
         {
-            tmp_.plugin_paths[tmp_.path_c] = buffer;
-            tmp_.path_c++;
+            plugins_.plugin_paths[plugins_.path_c] = buffer;
+            plugins_.path_c++;
         }
         ++line;
-        has_data = 1;
     }
-
-    if (has_data)
-        plugins_ = tmp_;
 }
 static void trim(char* s, unsigned long size)
 {
