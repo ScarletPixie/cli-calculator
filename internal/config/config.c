@@ -19,6 +19,7 @@ const plugin_paths_t* get_plugin_paths(void)
     static int initialized;
     if (!initialized)
     {
+        memset(&plugins_, 0, sizeof(plugins_));
         initialized = 1;
         set_plugin_list_file();
         load_file();
@@ -70,6 +71,7 @@ static void load_file(void)
         return;
     }
 
+    int has_data = 0;
     path_t buffer;
     while (fgets(buffer.data, sizeof(buffer.data) / sizeof(*buffer.data), fp) && line < 255)
     {
@@ -81,9 +83,11 @@ static void load_file(void)
             tmp_.path_c++;
         }
         ++line;
+        has_data = 1;
     }
 
-    plugins_ = tmp_;
+    if (has_data)
+        plugins_ = tmp_;
 }
 static void trim(char* s, unsigned long size)
 {
