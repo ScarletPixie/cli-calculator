@@ -7,7 +7,11 @@ int main(int argc, char **argv)
 {
     if (argc == 1)
     {
-        printf("Usage: ./rpn-x <operands> <operation>\n");
+
+        printf("Usage: rpn-x <operand/operator>...\n\n"
+            "Example:\n"
+            "  rpn-x 3 4 + 2 * 5 -\n"
+        );
         return 0;
     }
 
