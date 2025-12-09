@@ -15,7 +15,7 @@ else
     DEV_BUILD_SUFIX := -dev
 endif
 
-CFLAGS += -pedantic -I. -MP -MMD
+CFLAGS += -pedantic -I. -MP -MMD -lm
 
 SRCS := $(shell find . -type f -name '*.c')
 OBJS := $(addprefix $(BUILD_DIR)/, $(SRCS:.c=$(DEV_BUILD_SUFIX).o))

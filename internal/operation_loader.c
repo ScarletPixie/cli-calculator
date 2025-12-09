@@ -124,14 +124,14 @@ static void do_load_plugins(void)
 }
 static void load_builtin(void)
 {
-    const operation_t* sucess = NULL;
-    sucess = add_op(sum);
-    assert(sucess != NULL);
-    sucess = add_op(sub);
-    assert(sucess != NULL);
-    sucess = add_op(mul);
-    assert(sucess != NULL);
-    sucess = add_op(div);
-    assert(sucess != NULL);
-    (void)sucess;
+    const builtin_operations_t* builtins = get_builtins();
+    for (unsigned long i = 0; i < builtins->size; ++i)
+    {
+        const operation_t* op = builtins->builtins[i];
+        assert(op);
+        assert(op->unary);
+        const operation_t* success = add_op(*op);
+        assert(success);
+        (void)success;
+    }
 }
