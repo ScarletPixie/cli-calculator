@@ -1,7 +1,7 @@
 #include "api.h"
-#include "internal.h"
-#include "builtin/builtin.h"
 #include "config/config.h"
+#include "builtin/builtin.h"
+#include "operation_loader.h"
 
 #include <assert.h>
 #include <stdio.h>
